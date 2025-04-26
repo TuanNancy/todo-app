@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+
+        <!-- Form thêm công việc -->
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Nhập việc cần làm..." required>
+            <input type="date" id="due-date">
+            <select id="category">
+                <option value="">Chọn danh mục</option>
+                <option value="Học tập">Học tập</option>
+                <option value="Công việc">Công việc</option>
+                <option value="Cá nhân">Cá nhân</option>
+                <option value="Test">Test</option>
+
+            </select>
+            <button type="submit">Thêm</button>
+        </form>
+
+        <!-- Bộ lọc -->
+        <div class="filter">
+            <button onclick="filterTodos('all')">Tất cả</button>
+            <button onclick="filterTodos('completed')">Đã hoàn thành</button>
+            <button onclick="filterTodos('notCompleted')">Chưa hoàn thành</button>
+        </div>
+
+        <!-- Danh sách công việc -->
+        <ul id="todo-list"></ul>
+        <button onclick="logout()">Đăng xuất</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
