@@ -35,10 +35,10 @@ function initRegister() {
 
       const data = await res.json();
       if (res.ok) {
-        alert("Đăng ký thành công");
+        showNotification("Đăng ký thành công", "success");
         window.location.href = "login.html";
       } else {
-        alert(data.message || "Lỗi đăng ký");
+        showNotification(data.message || "Lỗi đăng ký", "error");
       }
     });
 }
