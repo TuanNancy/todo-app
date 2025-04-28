@@ -25,7 +25,8 @@ function initRegister() {
       const password = document.getElementById("password").value.trim();
       const confirm = document.getElementById("confirm-password").value.trim();
 
-      if (password !== confirm) return alert("Mật khẩu không khớp");
+      if (password !== confirm)
+        return showNotification("Mật khẩu không khớp", "warning");
 
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -53,7 +54,8 @@ function initRegister() {
       const password = document.getElementById("password").value.trim();
       const confirm = document.getElementById("confirm-password").value.trim();
 
-      if (password !== confirm) return alert("Mật khẩu không khớp");
+      if (password !== confirm)
+        return showNotification("Mật khẩu không khớp", "warning");
 
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -63,10 +65,10 @@ function initRegister() {
 
       const data = await res.json();
       if (res.ok) {
-        alert("Đăng ký thành công");
+        showNotification("Đăng ký thành công", "success");
         window.location.href = "login.html";
       } else {
-        alert(data.message || "Lỗi đăng ký");
+        showNotification(data.message || "Lỗi đăng ký", "error");
       }
     });
 }
@@ -91,7 +93,7 @@ function initLogin() {
         localStorage.setItem("token", data.token);
         window.location.href = "index.html";
       } else {
-        alert(data.message || "Sai tài khoản hoặc mật khẩu");
+        showNotification("Sai tài khoản hoặc mật khẩu", "error");
       }
     });
 }
@@ -125,8 +127,9 @@ function initTodo() {
       todos.unshift(data);
       renderTodos();
       e.target.reset();
+      showNotification("Thêm công việc thành công", "success");
     } else {
-      alert(data.message || "Lỗi thêm công việc");
+      showNotification(data.message || "Lỗi thêm công việc", "error");
     }
   });
 }
@@ -205,4 +208,16 @@ function authHeader() {
     "Content-Type": "application/json",
     Authorization: "Bearer " + localStorage.getItem("token"),
   };
+}
+
+function showNotification(message, type = "success") {
+  const notification = document.getElementById("notification");
+  notification.textContent = message;
+  notification.className = type; // success, error, warning
+  notification.style.display = "block";
+
+  // Ẩn thông báo sau 3 giây
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3000);
 }
